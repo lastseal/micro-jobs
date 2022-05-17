@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*
 
-from . import config
+from micro import config
 
+import threading
 import schedule
 import logging
 import time
 import re
 
+  
 ##
 # Schedule
 
-def repeat(args):
+def repeat(args, thread=False):
     def decorator(handle):
 
         every = args["every"]
@@ -55,8 +57,14 @@ def repeat(args):
 
         logging.info("starting %s", args)
 
-        while True:
-            schedule.run_pending()
-            time.sleep(1)
+        def target():
+            while True:
+                schedule.run_pending()
+                time.sleep(1)
+
+        if not thread:
+            target()
+        else:
+            threading.Thread(target=target, daemon=True).start()
         
     return decorator
