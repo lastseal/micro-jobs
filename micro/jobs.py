@@ -8,7 +8,59 @@ import logging
 import time
 import re
 
-  
+##
+#
+
+def monday(at_time):
+
+    def decorator(handle):
+        schedule.every().monday.at(at_time).do(handle)
+
+        logging.debug("every monday at %s", at_time)
+
+        while True:
+            try:
+                schedule.run_pending()
+                time.sleep(1)
+            except Exception as ex:
+                logging.error(ex)
+
+    return decorator
+
+##
+#
+
+def daily(at_time, timezone):
+
+    def decorator(handle):
+
+        schedule.every().day.at(at_time, timezone).do(handle)
+
+        logging.debug("every monday at %s", at_time)
+
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
+
+    return decorator
+
+##
+#
+
+def hourly():
+
+    def decorator(handle):
+
+        schedule.every().hour.do(handle)
+
+        logging.debug("every monday at %s", at_time)
+
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
+
+    return decorator
+
 ##
 # Schedule
 
