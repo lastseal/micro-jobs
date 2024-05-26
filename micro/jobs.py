@@ -36,7 +36,7 @@ def daily(at_time, timezone):
 
         schedule.every().day.at(at_time, timezone).do(handle)
 
-        logging.debug("every monday at %s", at_time)
+        logging.debug("every day at %s", at_time)
 
         while True:
             schedule.run_pending()
