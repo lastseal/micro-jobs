@@ -30,13 +30,16 @@ def monday(at_time):
 ##
 #
 
-def daily(at_time, timezone):
+def daily(at_time, timezone, immediately=False):
 
     def decorator(handle):
-
+        
         schedule.every().day.at(at_time, timezone).do(handle)
 
         logging.debug("every day at %s", at_time)
+
+        if immediately:
+            handle()
 
         while True:
             schedule.run_pending()
