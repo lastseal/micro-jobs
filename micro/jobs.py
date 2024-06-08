@@ -6,7 +6,10 @@ import threading
 import schedule
 import logging
 import time
+import sys
 import re
+
+immediately = '--immediately' in sys.argv[1:]
 
 ##
 #
@@ -30,7 +33,7 @@ def monday(at_time):
 ##
 #
 
-def daily(at_time, timezone, immediately=False):
+def daily(at_time, timezone, immediately=immediately):
 
     def decorator(handle):
         
