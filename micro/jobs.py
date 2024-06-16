@@ -53,17 +53,34 @@ def daily(at_time, timezone, immediately=immediately):
 ##
 #
 
-def hourly():
+def every(value, immediately=immediately):
+
+    matches = re.findall("(.*)(s|m|h|d)", value)
+
+    if not matches:
+        raise Exception(f"Format not support {every}")
 
     def decorator(handle):
-
-        schedule.every().hour.do(handle)
-
-        logging.debug("every monday at %s", at_time)
+        
+        job = schedule.every( int(matches[0][0]) )
+        
+        if t == "s":
+            job.seconds.do(handle)
+        elif t == "m":
+            job.minutes.do(handle)
+        elif t == "h":
+            job.hours.do(handle)
+        else:
+            job.days.do(handle)
+            
+        logging.debug("every %s", vlue)
 
         while True:
-            schedule.run_pending()
-            time.sleep(1)
+            try:
+                schedule.run_pending()
+                time.sleep(1)
+            except Exception as ex:
+                logging.error(ex)
 
     return decorator
 
