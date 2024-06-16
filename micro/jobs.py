@@ -63,12 +63,14 @@ def every(value, immediately=immediately):
     def decorator(handle):
         
         job = schedule.every( int(matches[0][0]) )
+
+        unit = matches[0][1]
         
-        if t == "s":
+        if unit == "s":
             job.seconds.do(handle)
-        elif t == "m":
+        elif unit == "m":
             job.minutes.do(handle)
-        elif t == "h":
+        elif unit == "h":
             job.hours.do(handle)
         else:
             job.days.do(handle)
