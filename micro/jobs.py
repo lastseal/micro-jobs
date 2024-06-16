@@ -74,7 +74,10 @@ def every(value, immediately=immediately):
             job.hours.do(handle)
         else:
             job.days.do(handle)
-            
+
+        if immediately:
+            handle()
+
         logging.debug("every %s", value)
 
         while True:
