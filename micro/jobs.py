@@ -75,7 +75,7 @@ def every(value, immediately=immediately):
         else:
             job.days.do(handle)
             
-        logging.debug("every %s", vlue)
+        logging.debug("every %s", value)
 
         while True:
             try:
