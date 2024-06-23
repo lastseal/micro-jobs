@@ -33,11 +33,15 @@ def monday(at_time):
 ##
 #
 
-def daily(at_time, timezone, immediately=immediately):
+def daily(at_time, timezone, immediately=immediately, exclude=[]):
 
+    days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+    
     def decorator(handle):
-        
-        schedule.every().day.at(at_time, timezone).do(handle)
+
+        foy day in days:
+            if day not in exclude:
+                getattr(schedule.every(), day).at(at_time, timezone).do(handle)
 
         logging.debug("every day at %s", at_time)
 
