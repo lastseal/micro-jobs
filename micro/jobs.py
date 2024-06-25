@@ -39,7 +39,7 @@ def daily(at_time, timezone, immediately=immediately, exclude=[]):
     
     def decorator(handle):
 
-        foy day in days:
+        for day in days:
             if day not in exclude:
                 getattr(schedule.every(), day).at(at_time, timezone).do(handle)
 
